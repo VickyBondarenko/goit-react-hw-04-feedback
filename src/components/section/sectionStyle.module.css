@@ -1,0 +1,15 @@
+.section {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #53a8b6;
+  border-radius: 8px;
+  background-color: #bbe4e9;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.section_title {
+  font-size: 36px;
+  text-align: center;
+}

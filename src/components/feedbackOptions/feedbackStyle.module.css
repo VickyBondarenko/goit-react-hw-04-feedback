@@ -1,0 +1,15 @@
+.feedback_btn {
+  width: 110px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: fff;
+  border: 1px solid #53a8b6;
+  border-radius: 8px;
+  color: #53a8b6;
+  font-size: 18px;
+}
+
+.btn_list {
+  display: block;
+  margin: 0 auto;
+}
