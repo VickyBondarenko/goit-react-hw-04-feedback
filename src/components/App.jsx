@@ -1,66 +1,55 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { Section } from './section/Section ';
 import { FeedbackOptions } from './feedbackOptions/FeedbackOptions';
 import { Statistics } from './statistic/Statistics';
 import styled from 'styled-components';
 
-export class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+function App() {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const mapState = {
+    good: setGood,
+    neutral: setNeutral,
+    bad: setBad,
   };
 
-  addFeedback = event => {
+  const addFeedback = event => {
     const { name } = event.target;
-    this.setState(prevState => ({
-      [name]: prevState[name] + 1,
-    }));
+    mapState[name](prevState => prevState + 1);
   };
 
-  countTotalFeedback = () => {
-    const total = this.state.bad + this.state.neutral + this.state.good;
-    return total;
+  const countTotalFeedback = () => {
+    return bad + neutral + good;
   };
 
-  countPositiveFeedbackPercentage = () => {
-    if (this.state.good === 0) {
+  const countPositiveFeedbackPercentage = () => {
+    if (good === 0) {
       return 0;
     }
-    const positiveFeedback = Math.round(
-      (this.state.good /
-        (this.state.bad + this.state.neutral + this.state.good)) *
-        100
-    );
-
-    return positiveFeedback;
+    return Math.round((good / (bad + neutral + good)) * 100);
   };
 
-  render() {
-    const total = this.countTotalFeedback();
-    const positivePercentage = this.countPositiveFeedbackPercentage();
-
-    return (
-      <Wraper>
-        <Section title={'Please leave feedback'}>
-          <FeedbackOptions
-            options={this.state}
-            onLeaveFeedback={this.addFeedback}
-          />
-        </Section>
-        <Section title={'Statistics'}>
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={total}
-            positivePercentage={positivePercentage}
-          />
-        </Section>
-      </Wraper>
-    );
-  }
+  return (
+    <Wraper>
+      <Section title={'Please leave feedback'}>
+        <FeedbackOptions options={mapState} onLeaveFeedback={addFeedback} />
+      </Section>
+      <Section title={'Statistics'}>
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={countTotalFeedback()}
+          positivePercentage={countPositiveFeedbackPercentage()}
+        />
+      </Section>
+    </Wraper>
+  );
 }
+
+export default App;
 
 const Wraper = styled.div`
   margin-left: 50px;

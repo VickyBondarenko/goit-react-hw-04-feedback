@@ -17,10 +17,7 @@ export const Statistics = ({
           <li className={css.item}>Neutral: {neutral}</li>
           <li className={css.item}> Bad: {bad}</li>
           <li className={css.item}>Total: {total}</li>
-          <li className={css.item}>
-            {' '}
-            Positive feedback: {positivePercentage}%
-          </li>
+          <li className={css.item}>Positive feedback: {positivePercentage}%</li>
         </ul>
       ) : (
         <Notification message={'There is no feedback'} />
